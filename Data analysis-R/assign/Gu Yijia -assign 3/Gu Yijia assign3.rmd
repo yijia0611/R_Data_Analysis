@@ -1,0 +1,77 @@
+---
+title: "Exercise 3."
+author: "<your name>"
+date: '2021 10 18'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error = TRUE) # Granat: please do not delete or modify this line!!!
+```
+
+# Guidelines
+
+## 1 
+
+Simulate 1000 samples from Student t distribution. The number of observations should be 20 in every sample. (random numbers from t distribution)
+Empty1 <- NULL
+n1 <- 20
+rt(20, df= 1)
+df1 <- 20000-1
+ncp1 <- 2
+
+for (i in 1:1000) {
+  Empty1 <- c(Empty1, rt(n1, df1, ncp1))
+}
+Empty1
+
+## 2 
+
+Simulate 1000 samples from Student t distribution. The number of observations should be 100 in every sample.(random numbers from t distribution)
+Empty2 <- NULL
+n2 <- 100
+df2 <- 100000-1
+ncp2 <- 3
+
+for (i in 1:1000) {
+  Empty2 <- c(Empty2, rt(n2, df2, ncp2))
+}
+Empty2
+
+
+
+For both cases calculate mean for every sample. Depict the distribution of sample means. On the graph, there should be the normal distribution curve for comparison. Test the distribution for normality. For simulations You can get 4 points! You are expected to write your solution into this rmd file, and please send a knitted HTML document back. (If you missed the class or still not comfortable with rmd, then visit the following page for tutorial: https://rmarkdown.rstudio.com/lesson-1.html)
+
+Write an 1000 characters essay about the results. In this essay write about the phenomenon that is proved by the simulations! For the essay you can get 4 extra points!
+
+# 1
+library(Hmisc)
+mean(Empty1)
+
+#Depict the distribution of sample means
+hist(Empty1, xlab='Sample mean', main='Distribution of sample mean for n=20',col='beige')
+abline(v=mean(Empty1),lwd=3, col='darkslategray4')
+legend(c("Sample","Population"), x='topright', lwd=c(3,3), col=c('darkslategray4','firebrick'))
+
+#Test the distribution for normality.
+library(nortest)
+ad.test(Empty1)
+install.packages("ggpubr")
+library(ggpubr)
+ggqqplot(Empty1)
+
+# 2
+
+mean(Empty2)
+
+#Depict the distribution of sample means.
+hist(Empty2, xlab='Sample mean', main='Distribution of sample mean for n=100',col='beige')
+abline(v=mean(Empty2),lwd=3, col='darkslategray4')
+legend(c("Sample","Population"), x='topright', lwd=c(3,3), col=c('darkslategray4','firebrick'))
+
+#Test the distribution for normality.
+library(nortest)
+ad.test(Empty2)
+install.packages("ggpubr")
+library(ggpubr)
+ggqqplot(Empty2)
